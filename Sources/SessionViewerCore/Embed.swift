@@ -814,12 +814,13 @@ public func runEmbedCLI(dbPath: String, limit: Int, query: String,
     var ticks = 0
     print("chunking   C=\(plan.words) words / S=\(plan.stride) stride (256-token model window)")
     print("classes    \(classes.map(\.rawValue).joined(separator: " + ")) → sibling .vec.db files")
-    let s = buildEmbeddings(dbPath: dbPath, limit: limit, plan: plan, classes: classes) { p in
+    let s = buildEmbeddings(dbPath: dbPath, limit: limit, plan: plan, classes: classes,
+                            onProgress: { p in
         ticks += 1
         if ticks <= 6 || p.done % 500 == 0 {
             FileHandle.standardError.write("  tick \(ticks): \(p.done)/\(p.total) events, \(p.vectors) vectors\n".data(using: .utf8)!)
         }
-    }
+    })
     print("progress ticks: \(ticks)")
     print("done       \(s.events) events → \(s.vectors) vectors, \(s.skipped) skipped, \(String(format: "%.1f", s.seconds))s")
     let after = readEmbedCoverage(dbPath: dbPath)
