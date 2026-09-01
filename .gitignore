@@ -1,0 +1,20 @@
+# The index is a REBUILDABLE CACHE, not an archive — SPEC.md says so explicitly, and
+# `just import` reconstructs it from ~/.claude/projects in ~30 s. It is also 600 MB.
+.data/
+
+# Swift build products (279 MB).
+.build/
+
+# The web client is the ONLY part of this project with a build step (SPEC.md).
+webapp/node_modules/
+webapp/dist/
+
+# web/ IS committed, deliberately: it is 216 KB of built output that `session-viewer serve`
+# hands to a browser, so committing it keeps a fresh clone runnable without bun. That is a
+# considered exception to "never commit build output", not an oversight.
+
+.DS_Store
+webapp/tsconfig.tsbuildinfo
+
+# Python bytecode from eval_ab.py imports
+__pycache__/

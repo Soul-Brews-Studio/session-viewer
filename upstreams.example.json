@@ -1,0 +1,13 @@
+[
+  {
+    "name": "oracle",
+    "transport": "stdio",
+    "command": "/path/to/bun",
+    "args": [
+      "/path/to/arra-oracle/bin/mcp.ts"
+    ],
+    "timeout": 15,
+    "era": "legacy",
+    "expose": false
+  }
+]

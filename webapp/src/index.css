@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* THEMES — four complete token sets, switched by [data-theme] on <html>.
+   Only COLOUR and font-family change between them: the type scale, spacing and layout are
+   shared, so a theme cannot break the rhythm the layout was tuned to.
+
+   The CONTENT/CHROME split is the load-bearing idea and survives every theme:
+   --content is the ONLY size the user moves. Scaling chrome too made the toolbar lurch
+   and solved nothing — the chrome was already the right size. */
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+}
+
+:root, [data-theme="modern-dark"] {
+  --bg:#16181d; --panel:#1c1f26; --line:#2a2f3a; --hover:#1e222a; --sel:#24304a;
+  --fg:#e8eaf0; --dim:#9aa3b2; --faint:#5f6879;
+  --hot:#35d07f; --warm:#e8b93a; --cool:#6b7484; --accent:#4c8dff; --err:#ff6b6b;
+  --radius:6px;
+  --ui-sans: var(--font-sans); --ui-mono: var(--font-mono);
+}
+/* Not an inversion — the greys are re-picked so secondary text keeps >=4.5:1 instead of
+   becoming the washed-out mid-grey a naive invert produces. */
+[data-theme="modern-light"] {
+  --bg:#fbfbfd; --panel:#f2f3f6; --line:#dfe2e9; --hover:#eef0f4; --sel:#dce8ff;
+  --fg:#1a1d23; --dim:#5b6472; --faint:#8a93a3;
+  --hot:#12a05a; --warm:#a97a06; --cool:#8a93a3; --accent:#1e6fe0; --err:#c62828;
+}
+/* Mono everywhere is EARNED here, not costume: every field on screen is an id, a byte
+   count, a path, or a timestamp. */
+[data-theme="classic-term"] {
+  --bg:#05080a; --panel:#0b1014; --line:#16242b; --hover:#0e1a1f; --sel:#0d2f2a;
+  --fg:#c8f5d8; --dim:#5fbf8a; --faint:#2f6b4f;
+  --hot:#39ff88; --warm:#ffd23f; --cool:#3d6b57; --accent:#39ff88; --err:#ff5c5c;
+  --radius:2px; --ui-sans: var(--font-mono);
+}
+/* For READING a long transcript rather than watching it move. */
+[data-theme="classic-paper"] {
+  --bg:#f4f1ea; --panel:#eae5da; --line:#d9d2c4; --hover:#efece4; --sel:#e4dcc8;
+  --fg:#221f1a; --dim:#5d564a; --faint:#8a8172;
+  --hot:#3f7d4f; --warm:#9a7212; --cool:#8a8172; --accent:#8a5a2b; --err:#a33;
+  --radius:3px; --ui-sans:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+}
+
+html { --content: 13px; }          /* the one size ⌘+/− moves */
+body {
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:var(--ui-sans); font-size:13px; line-height:1.5;
+  transition: background .12s ease, color .12s ease;
+}
+/* 13px is the FLOOR for corpus text. ~15% of these transcripts are Thai, and Thai stacks
+   up to three levels on one glyph (base + สระ + วรรณยุกต์) — it becomes an unreadable
+   blob well before the Latin beside it looks wrong. */
+.content-text { font-size: var(--content); }
+.mono { font-family: var(--ui-mono); }
+:focus-visible { outline:2px solid var(--accent); outline-offset:1px; }
