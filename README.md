@@ -19,6 +19,12 @@ in this README so it needs no click-through.
 
 ![Live session fleet with grouped parent and agent sessions](docs/screenshots/live-fleet.png)
 
+The same reader is also a native macOS SwiftUI window. This capture uses two
+synthetic sessions imported into a temporary SQLite database; no local transcript
+or machine path is included.
+
+![Native SwiftUI indexed-session view](docs/screenshots/native-swiftui-all.png)
+
 See [docs/public-demo-gallery.md](docs/public-demo-gallery.md) for the capture
 notes and [HOW-IT-WORKS.md](HOW-IT-WORKS.md) for the local/server boundary.
 
